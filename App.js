@@ -13,7 +13,7 @@ import { Provider } from "react-redux";
 import { createStore } from "redux";
 import reducers from "./src/redux/reducers";
 
-import Loginform from "./src/components/loginform"
+import Loginform from "./src/components/loginform";
 
 const instructions = Platform.select({
   ios: "Press Cmd+R to reload,\n" + "Cmd+D or shake for dev menu",
@@ -26,8 +26,7 @@ type Props = {};
 export default class App extends Component<Props> {
   render() {
     return (
-      <Provider store={createStore(reducers)} >
-
+      <Provider store={createStore(reducers)}>
         <Loginform />
       </Provider>
     );
