@@ -1,7 +1,8 @@
-import { USERNAME_CHANGE, PASSWORD_CHANGE } from "../actions/types";
+import { USERNAME_CHANGE, PASSWORD_CHANGE,USER_ATTEMPT } from "../actions/types";
 const INITIAL_STATE = {
   username: "",
-  password: ""
+  password: "",
+  loading:false
 };
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -13,6 +14,9 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         password: action.payload
       };
+    }
+    case USER_ATTEMPT :{
+        return{...state,loading:true}
     }
 
     default:

@@ -1,4 +1,4 @@
-import { USERNAME_CHANGE, PASSWORD_CHANGE } from "./types";
+import { USERNAME_CHANGE, PASSWORD_CHANGE, USER_ATTEMPT } from "./types";
 
 export const usernmaechange = text => {
   return {
@@ -10,5 +10,10 @@ export const passwordchange = text => {
   return {
     type: "PASSWORD_CHANGE",
     payload: text
+  };
+};
+export const userlogin = ({ username, password }) => {
+  return dispatch => {
+    dispatch({ type: "USER_ATTEMPT" });
   };
 };

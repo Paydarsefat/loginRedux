@@ -1,7 +1,13 @@
 import React, { Component } from "react";
-import { View, Text, TextInput, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  ActivityIndicator
+} from "react-native";
 import { connect } from "react-redux";
-import { usernmaechange, passwordchange } from "../redux/actions";
+import { usernmaechange, passwordchange, userlogin } from "../redux/actions";
 
 class Loginform extends Component {
   constructor(props) {
@@ -13,6 +19,27 @@ class Loginform extends Component {
   }
   onPasswordChange(text) {
     this.props.passwordchange(text);
+  }
+  onUserlogin() {
+    const { username, password } = this.props;
+    this.props.userlogin(username, password);
+  }
+  renderbtn() {
+    if (this.props.loading) {
+      return <ActivityIndicator />;
+    } else {
+      return (
+        <TouchableOpacity
+          style={{ backgroundColor: "blue", margin: 10 }}
+          onPress={this.onUserlogin.bind(this)}
+        >
+          <Text style={{ margin: 20, textAlign: "center", color: "red" }}>
+            {" "}
+            Login
+          </Text>
+        </TouchableOpacity>
+      );
+    }
   }
   render() {
     return (
@@ -30,12 +57,7 @@ class Loginform extends Component {
           onChangeText={this.onPasswordChange.bind(this)}
           value={this.props.password}
         />
-        <TouchableOpacity style={{ backgroundColor: "blue", margin: 10 }}>
-          <Text style={{ margin: 20, textAlign: "center", color: "red" }}>
-            {" "}
-            Login
-          </Text>
-        </TouchableOpacity>
+        {this.renderbtn()}
       </View>
     );
   }
@@ -43,11 +65,12 @@ class Loginform extends Component {
 const mapStateToProps = state => {
   return {
     username: state.auth.username,
-    password: state.auth.password
+    password: state.auth.password,
+    loading: state.auth.loading
   };
 };
 
 export default connect(
   mapStateToProps,
-  { usernmaechange, passwordchange }
+  { usernmaechange, passwordchange, userlogin }
 )(Loginform);
