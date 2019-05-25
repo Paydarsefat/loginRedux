@@ -22,7 +22,7 @@ class Loginform extends Component {
   }
   onUserlogin() {
     const { username, password } = this.props;
-    this.props.userlogin(username, password);
+    this.props.userlogin({ username, password });
   }
   renderbtn() {
     if (this.props.loading) {
@@ -44,6 +44,16 @@ class Loginform extends Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
+        <Text
+          style={{
+            fontSize: 18,
+            color: "red",
+            textAlign: "center",
+            alignSelf: "center"
+          }}
+        >
+          {this.props.error}
+        </Text>
         <TextInput
           placeholder="username"
           style={{ borderWidth: 2, padding: 5 }}
@@ -66,7 +76,8 @@ const mapStateToProps = state => {
   return {
     username: state.auth.username,
     password: state.auth.password,
-    loading: state.auth.loading
+    loading: state.auth.loading,
+    error: state.auth.error
   };
 };
 
